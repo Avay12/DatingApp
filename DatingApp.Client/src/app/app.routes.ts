@@ -8,12 +8,18 @@ import { authGuard } from './core/guard/auth.guard';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'members',
-    component: MemberListsComponent,
+    path: '',
+    runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
+    children: [
+      {
+        path: 'members',
+        component: MemberListsComponent,
+      },
+      { path: 'members/:id', component: MemberListsComponent },
+      { path: 'lists', component: ListsComponent },
+      { path: 'messages', component: MessagesComponent },
+    ],
   },
-  { path: 'members/:id', component: MemberListsComponent },
-  { path: 'lists', component: ListsComponent },
-  { path: 'messages', component: MessagesComponent },
   { path: '**', component: HomeComponent, pathMatch: 'full' },
 ];
