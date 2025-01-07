@@ -10,9 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatingApp.Core", "DatingApp.Core\DatingApp.Core.csproj", "{FA982EB6-D043-4096-9880-6D479B8B07EA}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -58,5 +55,8 @@ Global
 		{FA982EB6-D043-4096-9880-6D479B8B07EA}.Release|x64.Build.0 = Release|Any CPU
 		{FA982EB6-D043-4096-9880-6D479B8B07EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA982EB6-D043-4096-9880-6D479B8B07EA}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
