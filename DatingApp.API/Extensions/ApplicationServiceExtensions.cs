@@ -2,6 +2,7 @@ using System;
 using DatingApp.Core.Interfaces;
 using DatingApp.Core.Services;
 using DatingApp.Infrastructure.Data;
+using DatingApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Extensions;
@@ -18,6 +19,7 @@ public static class ApplicationServiceExtensions
     });
     services.AddCors();
     services.AddScoped<ITokenService, TokenService>();
+    services.AddScoped<IUserRepository, UserRepository>();
 
     return services;
   }
