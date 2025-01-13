@@ -1,4 +1,5 @@
 using DatingApp.Core.Entities;
+using DatingApp.Core.Interfaces;
 using DatingApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,22 +7,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-    public class UsersController(DataContext _context) : BaseApiController
+    [Authorize]
+    public class UsersController(IUserRepository _userRepository) : BaseApiController
     {
-        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            var users = await _context.Users.ToListAsync();
+            var users = await _userRepository.GetUsersAsync();
 
             return Ok(users);
         }
 
-        [Authorize]
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<AppUser>> GetUser(int id)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<AppUser>> GetUser(string username)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.GetUserByUsernameAsync(username);
 
             if (user == null) return NotFound();
 
