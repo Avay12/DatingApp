@@ -7,6 +7,7 @@ import { authGuard } from './core/guard/auth.guard';
 import { TestErrorsComponent } from './features/errors/test-errors/test-errors.component';
 import { NotFoundComponent } from './features/errors/not-found/not-found.component';
 import { ServerErrorsComponent } from './features/errors/server-errors/server-errors.component';
+import { MemberDetailComponent } from './features/members/member-detail/member-detail.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,7 @@ export const routes: Routes = [
         path: 'members',
         component: MemberListComponent,
       },
-      { path: 'members/:id', component: MemberListComponent },
+      { path: 'members/:username', component: MemberDetailComponent },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent },
     ],
