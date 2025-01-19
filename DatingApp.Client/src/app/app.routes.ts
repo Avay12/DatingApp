@@ -8,6 +8,7 @@ import { TestErrorsComponent } from './features/errors/test-errors/test-errors.c
 import { NotFoundComponent } from './features/errors/not-found/not-found.component';
 import { ServerErrorsComponent } from './features/errors/server-errors/server-errors.component';
 import { MemberDetailComponent } from './features/members/member-detail/member-detail.component';
+import { MemberEditComponent } from './features/members/member-edit/member-edit.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
         component: MemberListComponent,
       },
       { path: 'members/:username', component: MemberDetailComponent },
+      { path: 'member/edit', component: MemberEditComponent },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent },
     ],
