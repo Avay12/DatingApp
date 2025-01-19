@@ -1,5 +1,6 @@
 using System;
 using System.IO.Compression;
+using System.Security.Claims;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DatingApp.Core.DTOs;
@@ -12,6 +13,7 @@ namespace DatingApp.Infrastructure.Repositories;
 
 public class UserRepository(DataContext _context, IMapper mapper) : IUserRepository
 {
+
   public async Task<MemberDto?> GetMemberAsync(string username)
   {
     return await _context.Users
