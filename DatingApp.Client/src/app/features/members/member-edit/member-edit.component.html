@@ -1,7 +1,7 @@
 @if(member){
 <div class="row">
   <div class="col-4">
-    <h1>Your Profile</h1>
+    <h1>Your profile</h1>
   </div>
   <div class="col-8">
     @if(editForm.dirty){
@@ -47,13 +47,13 @@
       <tab heading="About {{member.knownAs}}">
         <form id="editForm" #editForm="ngForm" (ngSubmit)="updateMember()">
           <h4 class="mt-2">Description</h4>
-          <textarea class="form-control" name="introduction" id="" [(ngModel)]="member.introduction" rows="6">
+          <textarea class="form-control" name="introduction" [(ngModel)]="member.introduction" rows="6">
           </textarea>
           <h4 class="mt-2">Looking For</h4>
-          <textarea class="form-control" name="lookingFor" id="" [(ngModel)]="member.lookingFor" rows="6">
+          <textarea class="form-control" name="lookingFor" [(ngModel)]="member.lookingFor" rows="6">
           </textarea>
           <h4 class="mt-2">Interests</h4>
-          <textarea class="form-control" name="interests" id="" [(ngModel)]="member.interests" rows="6">
+          <textarea class="form-control" name="interests" [(ngModel)]="member.interests" rows="6">
           </textarea>
 
           <h4 class="mt-2">
