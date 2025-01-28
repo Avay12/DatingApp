@@ -1,8 +1,10 @@
 using System.Security.Claims;
 using AutoMapper;
+using DatingApp.API.Extensions;
 using DatingApp.Core.DTOs;
 using DatingApp.Core.Entities;
 using DatingApp.Core.Interfaces;
+using DatingApp.Core.Services;
 using DatingApp.Infrastructure.Data;
 using DatingApp.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DatingApp.API.Controllers
 {
     [Authorize]
-    public class UsersController(IUserRepository _userRepository, IMapper mapper) : BaseApiController
+    public class UsersController(IUserRepository _userRepository, IMapper mapper, IPhotoService _photoservice) : BaseApiController
     {
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
@@ -22,7 +24,7 @@ namespace DatingApp.API.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("{username}")] //karen
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             var user = await _userRepository.GetMemberAsync(username);
@@ -35,11 +37,7 @@ namespace DatingApp.API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdatedUser(MemberUpdateDto memberUpdateDto)
         {
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (username == null) return BadRequest("No username found in token");
-
-            var user = await _userRepository.GetUserByUsernameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
             if (user == null) return BadRequest("Could not find user");
 
@@ -47,6 +45,30 @@ namespace DatingApp.API.Controllers
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Failed to update the user");
+        }
+
+        [HttpPost("add-photo")]
+        public async Task<ActionResult> AddPhoto(IFormFile file)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            if (user == null) return BadRequest("Cannot update user");
+
+            var result = await _photoservice.AddPhotoAsync(file);
+
+            if (result.Error != null) return BadRequest(result.Error.Message);
+
+            var photo = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            user.Photos.Add(photo);
+
+            if (await _userRepository.SaveAllAsync()) return Ok(mapper.Map<PhotoDto>(photo));
+
+            return BadRequest("Problem adding photo");
         }
     }
 }
