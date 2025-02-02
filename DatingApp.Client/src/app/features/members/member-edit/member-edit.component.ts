@@ -12,10 +12,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { PhotoEditorComponent } from '../photo-editor/photo-editor.component';
 
 @Component({
   selector: 'app-member-edit',
-  imports: [TabsModule, FormsModule, DatePipe],
+  imports: [TabsModule, FormsModule, DatePipe, PhotoEditorComponent],
   templateUrl: './member-edit.component.html',
   styleUrl: './member-edit.component.css',
 })
